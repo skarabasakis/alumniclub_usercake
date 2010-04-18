@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>UserCake - Database Setup</title>
+<title>Database Setup - <?php echo $websiteName; ?></title>
 <style type="text/css">
 <!--
 html, body {
@@ -76,7 +76,7 @@ a {
 				
 				$group_entry = "
 					INSERT INTO `".$db_table_prefix."Groups` (`Group_ID`, `Group_Name`) VALUES
-					(1, 'Standard User');
+					(1, 'Διαχειριστής');
 				";
 				
 				$users_sql = "

@@ -66,4 +66,9 @@
 		"MAIL_TEMPLATE_FILE_EMPTY"				=> "Template file is empty... nothing to send",
 		"FEATURE_DISABLED"						=> "This feature is currently disabled",
 	));
+	
+	// Special Strings for Alumniclub
+	$lang = array_merge($lang,array(
+		"CAPTCHA_ERROR"							=> "Your response to the CAPTCHA was not correct",
+	));
 ?>

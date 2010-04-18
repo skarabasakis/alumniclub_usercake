@@ -13,7 +13,7 @@
 	$dbtype = "mysql"; 
 	$db_host = "localhost";
 	$db_user = "skarab_usercake";
-	$db_pass = "skarab_usercake";
+	$db_pass = "usercake";
 	$db_name = "skarab_usercake";
 	$db_port = "";
 	$db_table_prefix = "usercake_";
@@ -38,6 +38,7 @@
 	$emailAddress = "alumniclub@di.uoa.gr";
 	
 	//Date format used on email's
+	date_default_timezone_set('Europe/Athens');
 	$emailDate = date("d-m-Y"); /*date("l \\t\h\e jS");*/
 	
 	//Directory where txt files are stored for the email templates.
@@ -47,7 +48,13 @@
 	$default_replace = array($websiteName,$websiteUrl,$emailDate);
 	
 	//Display explicit error messages?
-	$debug_mode = false;
+	$debug_mode = true;
 	
+
+	
+	// Alumni Specific Settings
 	//---------------------------------------------------------------------------
+	$recaptcha_publickey = "6Ld1egwAAAAAAKPaDpoeLa_XyP-mSrvCaztacAT2 ";
+	$recaptcha_privatekey = "6Ld1egwAAAAAAKslgPNcjXACJ0G81T1FWArFcv_9 ";
+	
 ?>

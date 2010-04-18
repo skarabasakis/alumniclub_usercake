@@ -120,7 +120,7 @@ if(!empty($_POST) && $emailActivation)
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Resend Activation Email</title>
+<title>Resend Activation Email - <?php echo $websiteName; ?></title>
 <link href="cakestyle.css" rel="stylesheet" type="text/css" />
 </head>
 <body>

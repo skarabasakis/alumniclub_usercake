@@ -7,6 +7,8 @@
 	*/
 	require_once("models/config.php");
 	
+	require_once("libs/recaptchalib.php");
+	
 	//Prevent the user visiting the logged in page if he/she is already logged in
 	if(isUserLoggedIn()) { header("Location: account.php"); die(); }
 ?>
@@ -32,51 +34,59 @@ if(!empty($_POST))
 		//Perform some validation
 		//Feel free to edit / change as required
 		
-		if(minMaxRange(5,25,$username))
-		{
-			$errors[] = lang("ACCOUNT_USER_CHAR_LIMIT",array(5,25));
+		// Perform validation on the CAPTCHA before everything else
+		$resp = recaptcha_check_answer ($recaptcha_privatekey, $_SERVER["REMOTE_ADDR"], $_POST["recaptcha_challenge_field"], $_POST["recaptcha_response_field"]);
+		if (!$resp->is_valid) {
+			$errors[] = lang("CAPTCHA_ERROR");
 		}
-		if(minMaxRange(8,50,$password) && minMaxRange(8,50,$confirm_pass))
-		{
-			$errors[] = lang("ACCOUNT_PASS_CHAR_LIMIT",array(8,50));
-		}
-		else if($password != $confirm_pass)
-		{
-			$errors[] = lang("ACCOUNT_PASS_MISMATCH");
-		}
-		if(!isValidEmail($email))
-		{
-			$errors[] = lang("ACCOUNT_INVALID_EMAIL");
-		}
-		//End data validation
-		if(count($errors) == 0)
-		{	
-				//Construct a user object
-				$user = new User($username,$password,$email);
-				
-				//Checking this flag tells us whether there were any errors such as possible data duplication occured
-				if(!$user->status)
-				{
-					if($user->username_taken) $errors[] = lang("ACCOUNT_USERNAME_IN_USE",array($username));
-					if($user->email_taken) 	  $errors[] = lang("ACCOUNT_EMAIL_IN_USE",array($email));		
-				}
-				else
-				{
-					//Attempt to add the user to the database, carry out finishing  tasks like emailing the user (if required)
-					if(!$user->userCakeAddUser())
+		else {
+		
+			// CAPTCHA passed. Now perform additional validations
+			if(minMaxRange(5,25,$username))
+			{
+				$errors[] = lang("ACCOUNT_USER_CHAR_LIMIT",array(5,25));
+			}
+			if(minMaxRange(8,50,$password) && minMaxRange(8,50,$confirm_pass))
+			{
+				$errors[] = lang("ACCOUNT_PASS_CHAR_LIMIT",array(8,50));
+			}
+			else if($password != $confirm_pass)
+			{
+				$errors[] = lang("ACCOUNT_PASS_MISMATCH");
+			}
+			if(!isValidEmail($email))
+			{
+				$errors[] = lang("ACCOUNT_INVALID_EMAIL");
+			}
+			//End data validation
+			if(count($errors) == 0)
+			{	
+					//Construct a user object
+					$user = new User($username,$password,$email);
+					
+					//Checking this flag tells us whether there were any errors such as possible data duplication occured
+					if(!$user->status)
 					{
-						if($user->mail_failure) $errors[] = lang("MAIL_ERROR");
-						if($user->sql_failure)  $errors[] = lang("SQL_ERROR");
+						if($user->username_taken) $errors[] = lang("ACCOUNT_USERNAME_IN_USE",array($username));
+						if($user->email_taken) 	  $errors[] = lang("ACCOUNT_EMAIL_IN_USE",array($email));		
 					}
-				}
-		}
+					else
+					{
+						//Attempt to add the user to the database, carry out finishing  tasks like emailing the user (if required)
+						if(!$user->userCakeAddUser())
+						{
+							if($user->mail_failure) $errors[] = lang("MAIL_ERROR");
+							if($user->sql_failure)  $errors[] = lang("SQL_ERROR");
+						}
+					}
+			}
 	}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Registration</title>
+<title>Registration - <?php echo $websiteName; ?></title>
 <link href="cakestyle.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -143,6 +153,11 @@ if(!empty($_POST))
                 
                 <p>
                     <label>&nbsp;</label>
+                    <?php echo recaptcha_get_html($recaptcha_publickey); ?>
+                </p>
+                
+                <p>
+                    <label>&nbsp;</label>
                     <input type="submit" value="Register"/>
                 </p>
                 
@@ -155,5 +170,3 @@ if(!empty($_POST))
 </div>
 </body>
 </html>
-
-
