@@ -16,7 +16,7 @@
 	$db_pass = "usercake";
 	$db_name = "skarab_usercake";
 	$db_port = "";
-	$db_table_prefix = "usercake_";
+	$db_table_prefix = "";
 
 	$langauge = "en";
 	

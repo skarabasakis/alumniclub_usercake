@@ -1,22 +1,28 @@
 
+		<div id="build">
+			<a href="http://usercake.com"><span>UserCake</span></a>
+		</div>
+
 		<?php if(!isUserLoggedIn()) { ?>
-            <ul>
-                <li><a href="index.php">Home</a></li>
-                <li><a href="login.php">Login</a></li>
-                <li><a href="register.php">Register</a></li>
+			<ul>
+                <li><a href="index.php">Αρχική Σελίδα</a></li>
+                <li><a href="login.php">Σύνδεση</a></li>
+                <li><a href="register.php">Εγγραφή Μέλους</a></li>
                 <li><a href="forgot-password.php">Forgot Password</a></li>
                 <li><a href="resend-activation.php">Resend Activation Email</a></li>
             </ul>
-       <?php } else { ?>
+		<?php } else { ?>
        		<ul>
-            	<li><a href="logout.php">Logout</a></li>
-            	<li><a href="account.php">Account Home</a></li>
-       			<li><a href="change-password.php">Change password</a></li>
-                <li><a href="update-email-address.php">Update email address</a></li>
-       		</ul>
+            	<li><a href="account.php">Το προφίλ μου</a></li>
+                <li><a href="account.php">Ενημέρωση στοιχείων</a>
+	            	<ul>
+	            		<li><a href="update-email-address.php">Αλλαγή E-mail</a></li>
+	            	</ul>
+	            </li>
+				<li><a href="change-password.php">Αλλαγή Password</a></li>
+            	<li><a href="logout.php">Αποσύνδεση</a></li>
+			</ul>
        <?php } ?>
             
-            <div id="build">
-                <a href="http://usercake.com"><span>UserCake</span></a>
-            </div>
+
             

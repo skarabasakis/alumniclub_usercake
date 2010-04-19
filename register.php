@@ -23,8 +23,8 @@
 	*/
 
 //Forms posted
-if(!empty($_POST))
-{
+	if(!empty($_POST))
+	{
 		$errors = array();
 		$email = trim($_POST["email"]);
 		$username = trim($_POST["username"]);
@@ -61,32 +61,33 @@ if(!empty($_POST))
 			//End data validation
 			if(count($errors) == 0)
 			{	
-					//Construct a user object
-					$user = new User($username,$password,$email);
-					
-					//Checking this flag tells us whether there were any errors such as possible data duplication occured
-					if(!$user->status)
+				//Construct a user object
+				$user = new User($username,$password,$email);
+				
+				//Checking this flag tells us whether there were any errors such as possible data duplication occured
+				if(!$user->status)
+				{
+					if($user->username_taken) $errors[] = lang("ACCOUNT_USERNAME_IN_USE",array($username));
+					if($user->email_taken) 	  $errors[] = lang("ACCOUNT_EMAIL_IN_USE",array($email));		
+				}
+				else
+				{
+					//Attempt to add the user to the database, carry out finishing  tasks like emailing the user (if required)
+					if(!$user->userCakeAddUser())
 					{
-						if($user->username_taken) $errors[] = lang("ACCOUNT_USERNAME_IN_USE",array($username));
-						if($user->email_taken) 	  $errors[] = lang("ACCOUNT_EMAIL_IN_USE",array($email));		
+						if($user->mail_failure) $errors[] = lang("MAIL_ERROR");
+						if($user->sql_failure)  $errors[] = lang("SQL_ERROR");
 					}
-					else
-					{
-						//Attempt to add the user to the database, carry out finishing  tasks like emailing the user (if required)
-						if(!$user->userCakeAddUser())
-						{
-							if($user->mail_failure) $errors[] = lang("MAIL_ERROR");
-							if($user->sql_failure)  $errors[] = lang("SQL_ERROR");
-						}
-					}
+				}
 			}
+		}
 	}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Registration - <?php echo $websiteName; ?></title>
+<title>Αρχική Σελίδα - <?php echo $websiteName; ?></title>
 <link href="cakestyle.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -100,7 +101,7 @@ if(!empty($_POST))
         
         <div id="main">
 			
-            <h1>Registration</h1>
+            <h1>Εγγραφή Νέου Μέλους</h1>
 
 			<?php
             if(!empty($_POST))
@@ -120,16 +121,41 @@ if(!empty($_POST))
 				{
                		 $message = lang("ACCOUNT_REGISTRATION_COMPLETE_TYPE2");
 				}
-        ?> 
-        <div id="success">
-        
-           <p><?php echo $message ?></p>
-           
-        </div>
-        <? } }?>
+	        ?> 
+	        <div id="success">
+	        
+	           <p><?php echo $message ?></p>
+	           
+	        </div>
+	        <? } }?>
 
             <div id="regbox">
                 <form name="newUser" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
+                
+                <fieldset id="membertype">
+                	<legend>Τύπος Μέλους</legend>
+                	
+                	<div>
+	                	<label for="membertype1">
+	                		<input type="radio" name="membertype" id="membertype1" value="1" checked="checked" />
+	                		Τακτικό Μέλος - Ετήσια Συνδρομή: &euro;5
+	                	</label>
+                	</div>
+
+					<div>
+	                	<label for="membertype3">
+							<input type="radio" name="membertype" id="membertype2" value="2" disabled="disabled" />
+							Δόκιμο μέλος - Χωρίς ετήσια συνδρομή
+						</label>
+					</div>
+                	
+                	<div>
+	                	<label for="membertype3">
+	                	    <input type="radio" name="membertype" id="membertype3" value="3" disabled="disabled" />
+	                		Κοινωνικό Μέλος - Ετήσια Συνδρομή: &euro;5
+	                	</label>
+                	</div>
+                </fieldset>
                 
                 <p>
                     <label>Username:</label>
