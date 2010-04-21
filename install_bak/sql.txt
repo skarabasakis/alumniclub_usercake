@@ -18,10 +18,10 @@ AUTO_INCREMENT=5 ;
 
 
 INSERT INTO `Groups` (`Group_ID`, `Group_Name`) VALUES
-(1, 'τακτικό μέλος'),
-(2, 'κοινωνικό μέλος'),
-(3, 'δόκιμο μέλος'),
-(4, 'επίτιμο μέλος'),
+(1, 'Ξ¤Ξ±ΞΊΟ„ΞΉΞΊΟ ΞΞ­Ξ»ΞΏΟ‚'),
+(2, 'Ξ”ΟΞΊΞΉΞΌΞΏ ΞΞ­Ξ»ΞΏΟ‚'),
+(3, 'ΞΞΏΞΉΞ½Ο‰Ξ½ΞΉΞΊΟ ΞΞ­Ξ»ΞΏΟ‚'),
+(4, 'Ξ•Ο€Ξ―Ο„ΞΉΞΌΞΏ ΞΞ­Ξ»ΞΏΟ‚'),
 (100, 'admin')
 ;
 
@@ -295,6 +295,7 @@ CREATE TABLE IF NOT EXISTS `MemberInfo_Contact` (
   `User_ID` INTEGER UNSIGNED NOT NULL,
   `address1` VARCHAR(60) NOT NULL,
   `address2` VARCHAR(60),
+  `postcode` VARCHAR(10) NOT NULL,
   `city` VARCHAR(45) NOT NULL,
   `Country_ID` INTEGER(3) UNSIGNED NOT NULL DEFAULT 0,
   `phone_home` VARCHAR(30),
@@ -349,7 +350,7 @@ CHARACTER SET utf8 COLLATE utf8_general_ci;
 CREATE TABLE IF NOT EXISTS `MemberInfo_Status` (
   `User_ID` INTEGER UNSIGNED NOT NULL,
   `membership_year` YEAR(4) NOT NULL,
-  `mambership_category` INTEGER(11),
+  `group_id` INTEGER(11),
   PRIMARY KEY (`User_ID`, `membership_year`)
 )
 ENGINE = MyISAM

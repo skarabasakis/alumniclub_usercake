@@ -77,9 +77,16 @@ a {
 	padding: 15px 0 0 0;
 }
 
+#wrapper #content #main #regbox form div,
+#wrapper #content #main #regbox form fieldset div {
+	display: block;
+}
+
 #wrapper #content #main #regbox label {
-	width:100px;
+	width:160px;
 	float:left;
+	text-align: right;
+	padding-right:5px;
 }
 
 
@@ -98,4 +105,3 @@ a {
 	border: 1px solid #7ace6c;
 	padding:10px;
 }
-

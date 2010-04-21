@@ -25,11 +25,19 @@
 //Forms posted
 	if(!empty($_POST))
 	{
-		$errors = array();
+		/*$errors = array();
 		$email = trim($_POST["email"]);
 		$username = trim($_POST["username"]);
 		$password = trim($_POST["password"]);
-		$confirm_pass = trim($_POST["passwordc"]);
+		$confirm_pass = trim($_POST["passwordc"]);*/
+		
+		// Sanitize inputs
+		$s = new FormSanitizer();
+		array_walk($_POST, '$s->sanitize');
+		
+		// Validate inputs
+		$v = new Validator();
+		array_walk($_POST, '$v->validate');
 	
 		//Perform some validation
 		//Feel free to edit / change as required
@@ -136,56 +144,217 @@
                 	<legend>Τύπος Μέλους</legend>
                 	
                 	<div>
-	                	<label for="membertype1">
-	                		<input type="radio" name="membertype" id="membertype1" value="1" checked="checked" />
+	                	<label for="membertype-regular">
+	                		<input type="radio" name="group_id" id="membertype-regular" value="1" checked="checked" />
 	                		Τακτικό Μέλος - Ετήσια Συνδρομή: &euro;5
 	                	</label>
                 	</div>
 
 					<div>
-	                	<label for="membertype3">
-							<input type="radio" name="membertype" id="membertype2" value="2" disabled="disabled" />
+	                	<label for="membertype-juniot">
+							<input type="radio" name="group_id" id="membertype-junior" value="2" disabled="disabled" />
 							Δόκιμο μέλος - Χωρίς ετήσια συνδρομή
 						</label>
 					</div>
                 	
                 	<div>
-	                	<label for="membertype3">
-	                	    <input type="radio" name="membertype" id="membertype3" value="3" disabled="disabled" />
+	                	<label for="membertype-social">
+	                	    <input type="radio" name="group_id" id="membertype-social" value="3" disabled="disabled" />
 	                		Κοινωνικό Μέλος - Ετήσια Συνδρομή: &euro;5
 	                	</label>
                 	</div>
                 </fieldset>
                 
-                <p>
-                    <label>Username:</label>
-                    <input type="text" name="username" />
-                </p>
+                <fieldset id="account">
+                    <legend>Στοιχεία Λογαριασμού</legend>
                 
-                <p>
-                    <label>Password:</label>
-                    <input type="password" name="password" />
-                </p>
+	                <div>
+	                    <label>Username:</label>
+	                    <input type="text" name="username" />
+	                </div>
+	                
+	                <div>
+	                    <label>Password (x2):</label>
+	                    <input type="password" name="password" />
+	                    <input type="password" name="passwordc" />
+	                </div>
+	                
+	                <div>
+	                    <label>Email:</label>
+	                    <input type="text" name="email" />
+	                </div>
+                </fieldset>
                 
-                <p>
-                    <label>Confirm:</label>
-                    <input type="password" name="passwordc" />
-                </p>
+                <fieldset id="personal">
+                    <legend>Προσωπικά Στοιχεία</legend>
                 
-                <p>
-                    <label>Email:</label>
-                    <input type="text" name="email" />
-                </p>
+	                <div>
+	                    <label>Επώνυμο:</label>
+	                    <input type="text" name="lastname" />
+	                </div>
+	                
+	                <div>
+	                    <label>Όνομα:</label>
+	                    <input type="text" name="firstname" />
+	                </div>
+	                
+	                <div>
+	                    <label>Όνομα Πατέρα:</label>
+	                    <input type="text" name="fathersname" />
+	                </div>
+	                	                
+	                <div>
+	                    <label>Ημερομηνία Γέννησης:</label>
+	                    <select name="dob-date">
+	                    	<option value="0">&nbsp;</option>
+	                    	<?php 
+	                    		for ($i = 1; $i <= 31; $i++) {
+	                    	?>
+	                    	<option value="<?php echo $i; ?>"><?php echo $i;?></option>
+	                    	<?php 
+	                    		}
+	                    	?>
+	                    </select>
+	                    <select name="dob-month">
+	                    	<?php 
+		                    	$month = array( '', 'Ιανουαρίου', 'Φεβρουαρίου', 'Μαρτίου',
+		                    	                    'Απριλίου', 'Μαΐου', 'Ιουνίου',
+		                    	                    'Ιουλίου', 'Αυγούστου', 'Σεπτεμβρίου',
+		                    	                    'Οκτωβρίου', 'Νοεμβρίου', 'Δεκεμβρίου'); 
+		                    	
+		                    	foreach ($month as $i => $mname) {
+	                    	?>
+	                    	<option value="<?php echo $i; ?>"><?php echo $mname;?></option>
+	                    	<?php 
+	                    		}
+	                    	?>
+	                    </select>
+	                    <select name="dob-year">
+	                    	<option value="0">&nbsp;</option>
+	                    	<?php 
+	                    		$sixteen_years_ago = date("Y") - 16;
+	                    		for ($i = 1950; $i <= $sixteen_years_ago; $i++) {
+	                    	?>
+	                    	<option value="<?php echo $i; ?>"><?php echo $i;?></option>
+	                    	<?php 
+	                    		}
+	                    	?>
+	                    </select>
+	                </div>
+	                	                
+                </fieldset>
                 
-                <p>
-                    <label>&nbsp;</label>
+                <fieldset id="studies">
+                	<legend>Σπουδές</legend>
+                	
+                	<div>
+                		<label>Έτος εισαγωγής:</label>
+						<select name="entryyear">
+	                    	<option value="0">&nbsp;</option>
+	                    	<?php 
+	                    		$thisyear = date("Y");
+	                    		for ($i = 1986; $i <= $thisyear; $i++) {
+	                    	?>
+	                    	<option value="<?php echo $i; ?>"><?php echo $i;?></option>
+	                    	<?php 
+	                    		}
+	                    	?>
+	                    </select>
+	                </div>
+	                
+	                <div>
+	                    <label>Έτος αποφοίτησης:</label>
+						<select name="graduationyear">
+	                    	<option value="0">&nbsp;</option>
+	                    	<?php 
+	                    		for ($i = 1986; $i <= $thisyear; $i++) {
+	                    	?>
+	                    	<option value="<?php echo $i; ?>"><?php echo $i;?></option>
+	                    	<?php 
+	                    		}
+	                    	?>
+	                    </select>
+	                </div>
+                </fieldset>
+                
+                <fieldset id="contact">
+                	<legend>Στοιχεία Επικοινωνίας</legend>
+                	
+	                <div>
+	                    <label>Διεύθυνση:</label>
+	                    <input type="text" name="address1" value="&amp;"/><br />
+	                    <label>&nbsp;</label>
+	                    <input type="text" name="address2" />
+	                </div>
+	                
+	                <div>
+	                    <label>Ταχυδρομικός κώδικας:</label>
+	                    <input type="text" name="postcode" />
+	                </div>
+	                
+	                <div>
+	                    <label>Πόλη/Περιοχή:</label>
+	                    <input type="text" name="city" />
+	                </div>
+	                
+	                <div>
+	                    <label>Χώρα:</label>
+	                    <select name="country">
+	                    	<?php 
+	                    		$sql = "SELECT Country_ID, name FROM ".$db_table_prefix."Countries;";
+	                    		$countries = $db->sql_query($sql);
+	                    		
+	                    		while ($country = $db->sql_fetchrow($countries)) {
+	                    	?>
+	                    	<option value="<?php echo $country['Country_ID']; ?>"><?php echo $country['name'];?></option>
+	                    	<?php 
+	                    		}
+	                    	?>
+	                    </select>
+	                </div>
+	                
+	                <hr />
+	                
+	                <div>
+	                    <label>Τηλέφωνο οικίας:</label>
+	                    <input type="text" name="phone_home" />
+	                </div>
+	                
+	                <div>
+	                    <label>Τηλέφωνο κινητό:</label>
+	                    <input type="text" name="phone_mobile" />
+	                </div>
+	                
+                </fieldset>
+                
+                <div>
+                	<label>
+                		<input type="checkbox" name="signature-deed" id="signature-deed" value="1" />
+                		Έλαβα γνώση και αποδέχομαι το καταστατικό του Συλλόγου Αποφοίτων
+                	</label>
+                </div>
+                <div>
+                	<label for="signature-termsofuse">
+                		<input type="checkbox" name="signature-termsofuse" id="signature-termsofuse" value="1" />
+                		Έλαβα γνώση και αποδέχομαι τους όρους χρήσης της υπηρεσίας
+                	</label>
+              	</div>
+              	<div>
+                	<label for="signature-privacypolicy">
+                		<input type="checkbox" name="signature-privacypolicy" id="signature-privacypolicy" value="1" />
+                		Έλαβα γνώση και αποδέχομαι την πολιτική απορρήτου
+                	</label>
+                </div>
+
+                
+                <div style="text-align: center">
                     <?php echo recaptcha_get_html($recaptcha_publickey); ?>
-                </p>
+                </div>
                 
-                <p>
+                <div style="text-align: center">
                     <label>&nbsp;</label>
                     <input type="submit" value="Register"/>
-                </p>
+                </div>
                 
                 </form>
             </div>
