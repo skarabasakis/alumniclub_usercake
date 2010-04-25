@@ -70,5 +70,9 @@
 	// Special Strings for Alumniclub
 	$lang = array_merge($lang,array(
 		"CAPTCHA_ERROR"							=> "Your response to the CAPTCHA was not correct",
+		"ACCOUNT_MAIL_MISMATCH"					=> "Email addresses must match",
+		"ACCOUNT_PHONE_FORMAT_ERROR"            => "Phone number does not appear to be valid",
+		"ACCOUNT_PHONE_COUNTRY_ERROR"           => "Phone number does not appear to be valid in your country",
+		"REQUIRED_FIELD"                        => "The above field is required"
 	));
 ?>

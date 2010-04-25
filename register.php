@@ -49,43 +49,17 @@
 		}
 		else {
 		
-			// CAPTCHA passed. Now perform additional validations
-			if(minMaxRange(5,25,$username))
-			{
-				$errors[] = lang("ACCOUNT_USER_CHAR_LIMIT",array(5,25));
-			}
-			if(minMaxRange(8,50,$password) && minMaxRange(8,50,$confirm_pass))
-			{
-				$errors[] = lang("ACCOUNT_PASS_CHAR_LIMIT",array(8,50));
-			}
-			else if($password != $confirm_pass)
-			{
-				$errors[] = lang("ACCOUNT_PASS_MISMATCH");
-			}
-			if(!isValidEmail($email))
-			{
-				$errors[] = lang("ACCOUNT_INVALID_EMAIL");
-			}
 			//End data validation
-			if(count($errors) == 0)
+			if(count($v->errors_global) + $count($v->errors_specific) == 0)
 			{	
 				//Construct a user object
 				$user = new User($username,$password,$email);
 				
-				//Checking this flag tells us whether there were any errors such as possible data duplication occured
-				if(!$user->status)
+				//Attempt to add the user to the database, carry out finishing  tasks like emailing the user (if required)
+				if(!$user->userCakeAddUser())
 				{
-					if($user->username_taken) $errors[] = lang("ACCOUNT_USERNAME_IN_USE",array($username));
-					if($user->email_taken) 	  $errors[] = lang("ACCOUNT_EMAIL_IN_USE",array($email));		
-				}
-				else
-				{
-					//Attempt to add the user to the database, carry out finishing  tasks like emailing the user (if required)
-					if(!$user->userCakeAddUser())
-					{
-						if($user->mail_failure) $errors[] = lang("MAIL_ERROR");
-						if($user->sql_failure)  $errors[] = lang("SQL_ERROR");
-					}
+					if($user->mail_failure) $errors[] = lang("MAIL_ERROR");
+					if($user->sql_failure)  $errors[] = lang("SQL_ERROR");
 				}
 			}
 		}
@@ -96,16 +70,31 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Αρχική Σελίδα - <?php echo $websiteName; ?></title>
-<link href="cakestyle.css" rel="stylesheet" type="text/css" />
+<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="form.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
+<div id="header">
+	<div id="logo">&nbsp;
+	</div>
+	<div id="navi">
+		<ul>
+			<li><a href="login.php">σύνδεση</a></li>
+			<li><a href="register.php">εγγραφή</a></li>
+		</ul>
+	</div>
+</div>
 <div id="wrapper">
+	<div id="functions">
+	</div>
 	<div id="content">
 	
-    	 <div id="left-nav">
-        <?php include("layout_inc/left-nav.php"); ?>
-            <div class="clear"></div>
-        </div>
+		<!--
+		<div id="left-nav">
+		<?php /*include("layout_inc/left-nav.php");*/ ?>
+		<div class="clear"></div>
+		</div>
+		-->
         
         <div id="main">
 			
@@ -176,7 +165,7 @@
 	                <div>
 	                    <label>Password (x2):</label>
 	                    <input type="password" name="password" />
-	                    <input type="password" name="passwordc" />
+	                    <input type="password" name="password_c" />
 	                </div>
 	                
 	                <div>

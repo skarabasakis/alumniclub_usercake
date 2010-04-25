@@ -11,7 +11,6 @@ class User
 {
 	public $user_active = 0;
 	private $clean_email;
-	public $status = false;
 	private $clean_password;
 	private $clean_username;
 	private $unclean_username;
@@ -24,26 +23,12 @@ class User
 	function __construct($user,$pass,$email)
 	{
 		//Used for display only
-		$this->unclean_username = $user;
+		$this->unclean_username = strtolower($user);
 		
 		//Sanitize
-		$this->clean_email = sanitize($email);
-		$this->clean_password = trim($pass);
-		$this->clean_username = sanitize($user);
-		
-		if(usernameExists($this->clean_username))
-		{
-			$this->username_taken = true;
-		}
-		else if(emailExists($this->clean_email))
-		{
-			$this->email_taken = true;
-		}
-		else
-		{
-			//No problems have been found.
-			$this->status = true;
-		}
+		$this->clean_email = $email;
+		$this->clean_password = $pass;
+		$this->clean_username = $user;
 	}
 	
 	public function userCakeAddUser()
