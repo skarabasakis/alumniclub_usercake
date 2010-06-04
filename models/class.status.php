@@ -9,7 +9,7 @@
 class Status {
 	
 	// Table and Data
-	private $table = "memberinfo_status";
+	private $table = "MemberInfo_Status";
 	private $data = array (
 		'group_id'		=> NULL,
 		'year'			=> NULL

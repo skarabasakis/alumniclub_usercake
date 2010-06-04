@@ -105,8 +105,6 @@
 					// Need to better handle the case when database insertion partially fails
 					$success = true;
 					
-					var_dump($inserted);
-					
 					foreach ($inserted as $key => $value) {
 						if ($value == false)
 							array_push($warning_messages, lang("COULD_NOT_SAVE_IN_DATABASE", array($key)));

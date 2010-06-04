@@ -3,14 +3,15 @@
 	</div>
 	<div id="navi">
 		<ul>
-			<li><a href="register.php">εγγραφή</a></li>
 		<?php 
 		if(!isUserLoggedIn()) {
 		?>
+			<li><a href="register.php">εγγραφή</a></li>
 			<li><a href="login.php">σύνδεση</a></li>
 		<?php 
 		} else {
 		?>
+			<li><a href="account.php">προφίλ</a></li>
 			<li><a href="logout.php">αποσύνδεση</a></li>
 		<?php 
 		} 

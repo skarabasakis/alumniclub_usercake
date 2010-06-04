@@ -22,7 +22,7 @@
 	
 	//Generic website variables
 	$websiteName = "DIT Alumni Club Membership Management";
-	$websiteUrl = "http://skarab.co.cc/usercake/"; //including trailing slash
+	$websiteUrl = "http://skarab.co.cc/alumniservices/"; //including trailing slash
 
 	//Do you wish UserCake to send out emails for confirmation of registration?
 	//We recommend this be set to true to prevent spam bots.

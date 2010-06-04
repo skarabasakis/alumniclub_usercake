@@ -9,7 +9,7 @@
 class Studies_Undergr {
 	
 	// Table and Data
-	private $table = "memberinfo_studies_undergr";
+	private $table = "MemberInfo_Studies_Undergr";
 	private $data = array (
 		'entryyear'			=> NULL,
 		'graduationyear'	=> NULL

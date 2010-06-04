@@ -9,7 +9,7 @@
 class Contact {
 	
 	// Table and Data
-	private $table = "memberinfo_contact";
+	private $table = "MemberInfo_Contact";
 	private $data = array (
 		'address1'    => NULL,
 		'address2'    => NULL,
@@ -70,7 +70,7 @@ class Contact {
 		}
 		
 		$sql  = "INSERT INTO `".$db_table_prefix.$this->table."` (".$fields.") VALUES (".$values.")";
-		
+
 		return $db->sql_query($sql);
 	}
 	

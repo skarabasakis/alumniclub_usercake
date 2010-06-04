@@ -75,7 +75,7 @@ class userCakeMail {
 
 		$message = $msg;
 
-		$message = wordwrap($message, 70);
+		$message = wordwrap($message, 140);
 			
 		return mail($email,$subject,$message,$header);
 	}

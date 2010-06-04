@@ -69,7 +69,7 @@ class User
 				//Send the mail. Specify users email here and subject. 
 				//SendMail can have a third parementer for message if you do not wish to build a template.
 				
-				if(!$mail->sendMail($this->clean_email,"New User"))
+				if(!$mail->sendMail($this->clean_email,"Επιβεβαιώστε την εγγραφή σας στο Σύλλογο Αποφοίτων"))
 				{
 					$this->mail_failure = true;
 				}

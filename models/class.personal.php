@@ -9,7 +9,7 @@
 class Personal {
 	
 	// Table and Data
-	private $table = "memberinfo_personal";
+	private $table = "MemberInfo_Personal";
 	private $data = array (
 		'lastname'		=> NULL,
 		'firstname'		=> NULL,

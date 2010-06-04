@@ -56,7 +56,7 @@ if(!empty($_GET["confirm"]))
 		}
 		else
 		{	
-			if(!$mail->sendMail($userdetails["Email"],"Your new password"))
+			if(!$mail->sendMail($userdetails["Email"],"Το νέο σας password"))
 			{
 					$errors[] = lang("MAIL_ERROR");
 			}
@@ -179,7 +179,7 @@ if(!empty($_POST))
 					}
 					else
 					{
-						if(!$mail->sendMail($userdetails["Email"],"Lost password request"))
+						if(!$mail->sendMail($userdetails["Email"],"Ζητήσατε υπενθύμιση του κωδικού σας"))
 						{
 							$errors[] = lang("MAIL_ERROR");
 						}

@@ -100,7 +100,7 @@ if(!empty($_POST) && $emailActivation)
 							}
 							else
 							{
-								if(!$mail->sendMail($userdetails["Email"],"Activate your UserCake Account"))
+								if(!$mail->sendMail($userdetails["Email"],"Ενεργοποιήστε το λογαριασμό σας"))
 								{
 									$errors[] = lang("MAIL_ERROR");
 								}
