@@ -14,31 +14,26 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Welcome <?php echo $loggedInUser->display_username; ?> - <?php echo $websiteName; ?></title>
-<link href="cakestyle.css" rel="stylesheet" type="text/css" />
+<title>Διαχείριση Λογαριασμού - <?php echo $websiteName; ?></title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="form.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
+<?php include 'includes/header-nav.php'; ?>
 <div id="wrapper">
+	<div id="secondary-navi">
+		<?php include 'includes/secondary-nav.php'; ?>
+	</div>
+	<div id="content" >
+		<div id="main">
+			
+			<h1>Καλωσήρθατε, <?php echo $loggedInUser->display_username; ?></h1>
+		
+			<p>Είστε εγγεγραμμένος ως <strong><?php  $group = $loggedInUser->groupID(); echo $group['Group_Name']; ?></strong>. Η εγγραφή σας πραγρατοποιήθηκε στις <?php echo date("j/m/Y",$loggedInUser->signupTimeStamp()); ?>.</p>
 
-	<div id="content">
-    
-        <div id="left-nav">
-        <?php include("layout_inc/left-nav.php"); ?>
-            <div class="clear"></div>
-        </div>
-        
-        
-        <div id="main">
-        	<h1>Your Account</h1>
-        
-        	<p>Welcome to your account page <strong><?php echo $loggedInUser->display_username; ?></strong></p>
+			<p>Από αυτή τη σελίδα θα μπορείτε σύντομα να επεξεργάζεστε τα στοιχεία του λογαρισαμού σας.</p>
+		</div>
 
-            <p>I am a <strong><?php  $group = $loggedInUser->groupID(); echo $group['Group_Name']; ?></strong></p>
-          
-            
-            <p>You joined on <?php echo date("l \\t\h\e jS Y",$loggedInUser->signupTimeStamp()); ?> </p>
-  		</div>
-  
 	</div>
 </div>
 </body>

@@ -201,72 +201,70 @@ if(!empty($_POST))
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Forgot Password - <?php echo $websiteName; ?></title>
-<link href="cakestyle.css" rel="stylesheet" type="text/css" />
+<title>Υπενθύμιση password - <?php echo $websiteName; ?></title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="form.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
+<?php include 'includes/header-nav.php'; ?>
 <div id="wrapper">
-	<div id="content">
-	
-        <div id="left-nav">
-        <?php include("layout_inc/left-nav.php"); ?>
-            <div class="clear"></div>
-        </div>
-        
-        <div id="main">
-        
-        <h1>Forgot Password</h1>
-        
+	<div id="secondary-navi">
+		<?php include 'includes/secondary-nav.php'; ?>
+	</div>
+	<div id="content" >
+		<div id="main">
+		
+		<h1>Forgot Password</h1>
+		
 		<?php
-        if(!empty($_POST) || !empty($_GET))
-        {
-            if(count($errors) > 0)
-            {
+		if(!empty($_POST) || !empty($_GET))
+		{
+			if(count($errors) > 0)
+			{
 		?>
-        	<div id="errors">
-            	<?php errorBlock($errors); ?>
-            </div> 
-        <?
-            }
+			<div id="errors">
+				<?php errorBlock($errors); ?>
+			</div> 
+		<?
+			}
 			else
 			{
 		?>
-            <div id="success">
-            
-                <p><?php echo $success_message; ?></p>
-            
-            </div>
-        <?
+			<div id="success">
+			
+				<p><?php echo $success_message; ?></p>
+			
+			</div>
+		<?
 			}
-        }
-        ?> 
-        
-        <div id="regbox">
-            <form name="newLostPass" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
-            
-            <p>
-                <label>Username:</label>
-                <input type="text" name="username" />
-            </p>
-            
-            
-            <p>    
-                <label>Email:</label>
-                <input type="text" name="email" />
-            </p>
-            
-            
-            <p>
-                <label>&nbsp;</label>
-                <input type="submit" value="Login" class="submit" />
-            </p>
-            
-            </form>
-        </div>
+		}
+		?> 
+		
+		<div id="regbox">
+			<form name="newLostPass" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
+			
+			<p>
+				<label class="field">Username:</label>
+				<input type="text" name="username" />
+			</p>
+			
+			
+			<p>	
+				<label class="field">Email:</label>
+				<input type="text" name="email" />
+			</p>
+			
+			
+			<p style="text-align: center;">
+				<input type="submit" value="Login" class="submit" />
+			</p>
+			
+			</form>
+		</div>
 
-            <div class="clear"></div>
-        </div>
-    </div>
+			<div class="clear"></div>
+		</div>
+	</div>
 </div>
 </body>
 </html>

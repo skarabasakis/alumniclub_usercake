@@ -163,7 +163,13 @@
 	{
 		global $loggedInUser,$db,$db_table_prefix;
 		
-		$sql = "SELECT User_ID,
+		if($loggedInUser == NULL)
+		{
+			return false;
+		}
+		else
+		{
+			$sql = "SELECT User_ID,
 				Password
 				FROM ".$db_table_prefix."Users
 				WHERE
@@ -173,13 +179,8 @@
 				AND
 				Active = 1
 				LIMIT 1";
-		
-		if($loggedInUser == NULL)
-		{
-			return false;
-		}
-		else
-		{
+			
+			// TODO: For fuck's sake, can't this be made more efficient???
 			//Query the database to ensure they haven't been removed or possibly banned?
 			if(returns_result($sql) > 0)
 			{

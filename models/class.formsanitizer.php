@@ -3,54 +3,60 @@
 class FormSanitizer {
 
 	private $magic_quotes_on;
-	private $do_not_sanitize = array('user_id', 'recaptcha_challenge_field', 'recaptcha_response_field');
+	//private $do_not_sanitize = array('user_id', 'recaptcha_challenge_field', 'recaptcha_response_field');
 	
 	public $sanitize_filters = array(
 	
 		// User
-		'group_id'       => 'integer',
-		'username'       => 'string',
-		'password'       => 'password',
-		'password_c'     => 'password',
-		'email'          => 'email',
-		'email_c'        => 'email',
+		'group_id'	   => 'integer',
+		'username'	   => 'string',
+		'password'	   => 'password',
+		'password_c'	 => 'password',
+		'email'		  => 'email',
+		'email_c'		=> 'email',
+		'year'			=> 'integer',
 	
 		// Personal Information
-		'lastname'       => 'string',
-		'firstname'      => 'string',
-		'fathersname'    => 'string',
-		'dob-date'       => 'integer',
-	    'dob-month'      => 'integer',
-	    'dob-year'       => 'integer',
+		'lastname'	   => 'string',
+		'firstname'	  => 'string',
+		'fathersname'	=> 'string',
+		'dobdate'	   => 'integer',
+		'dobmonth'	  => 'integer',
+		'dobyear'	   => 'integer',
 	
 		// Studies
-		'entryyear'      => 'integer',
+		'entryyear'	  => 'integer',
 		'graduationyear' => 'integer',
 	
 		//Contact
-		'address1'       => 'string',
-		'address2'       => 'string',
-		'postcode'       => 'string',
-		'city'           => 'string',
-		'country'        => 'integer',
+		'address1'	   => 'string',
+		'address2'	   => 'string',
+		'postcode'	   => 'string',
+		'city'		   => 'string',
+		'country'		=> 'integer',
 	
-		'phone_home'     => 'phone',
+		'phone_home'	 => 'phone',
 		'phone_mobile'   => 'phone',
 	
-		'im_msn'         => 'email',
-		'im_xmpp'        => NULL,
-		'im_skype'       => NULL,
-		'website1'       => NULL,
-		'website2'       => NULL,
-		'website3'       => NULL,
-		'sn_facebook'    => NULL,
-		'sn_twitter'     => NULL,
-		'sn_linkedin'    => NULL,
-		'sn_google'      => NULL,
+		'im_msn'		 => 'email',
+		'im_xmpp'		=> NULL,
+		'im_skype'	   => NULL,
+		'website1'	   => NULL,
+		'website2'	   => NULL,
+		'website3'	   => NULL,
+		'sn_facebook'	=> NULL,
+		'sn_twitter'	 => NULL,
+		'sn_linkedin'	=> NULL,
+		'sn_google'	  => NULL,
 	
 		// CAPTCHA
 		'recaptcha_challenge_field' => NULL,
-		'recaptcha_response_field'  => NULL
+		'recaptcha_response_field'  => NULL,
+	
+		// Signatures
+		'signature_deed' 			=> NULL,
+		'signature_privacypolicy' 	=> NULL,
+		'signature_termsofuse'		=> NULL
 	);
 	
 	function __construct() {
@@ -68,7 +74,7 @@ class FormSanitizer {
 		$string = trim($string);										// Removes whitespace from the beginning and end of string 
 		$string = filter_var($string, FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW);
 																		// Removes most whitespace (except actual spaces) and low-ascii characters
-		$string = magic_quotes_on ? stripslashes($string) : $string;	// Fixes backslash pollution because of magic_quotes
+		$string = $this->magic_quotes_on ? stripslashes($string) : $string;	// Fixes backslash pollution because of magic_quotes
 		
 		return $string; // Must still be escaped upon database insertion, and html-escaped upon display
 	}
@@ -77,7 +83,7 @@ class FormSanitizer {
 		$string = trim($string);										// Removes whitespace from the beginning and end of string 
 		$string = filter_var($string, FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW);
 																		// Removes most whitespace (except actual spaces) and low-ascii characters
-		$string = magic_quotes_on ? stripslashes($string) : $string;	// Fixes backslash pollution because of magic_quotes
+		$string = $this->magic_quotes_on ? stripslashes($string) : $string;	// Fixes backslash pollution because of magic_quotes
 		$string = strtolower($string);
 		
 		return $string; // Must still be escaped upon database insertion, and html-escaped upon display
@@ -92,7 +98,7 @@ class FormSanitizer {
 	public function sanitize_email($string) {
 		$string = filter_var($string, FILTER_SANITIZE_EMAIL);			// Removes whitespace and forbidden characters
 		$string = strtolower($string);									// Converts to lowercase
-		$string = magic_quotes_on ? stripslashes($string) : $string;	// Fixes backslash pollution because of magic_quotes
+		$string = $this->magic_quotes_on ? stripslashes($string) : $string;	// Fixes backslash pollution because of magic_quotes
 		
 		return $string; // Must still be escaped upon database insertion
 	}
@@ -107,13 +113,12 @@ class FormSanitizer {
 		return $string;
 	}
 
-	public function sanitize($value, $key) {
-		if ($this->sanitize_filters[$key] != NULL) {
-			$callback = 'sanitize_'.$this->sanitize_filters[$key];
-			return $this->$callback($value);
-		}
-		else {
-			return $value;
+	public function sanitize(&$request_array) {
+		foreach ($request_array as $field => $value) {
+			if ($this->sanitize_filters[$field] != NULL) {
+				$callback = 'sanitize_'.$this->sanitize_filters[$field];
+				$request_array[$field] = $this->$callback($value);
+			}
 		}
 	}
 }

@@ -1,7 +1,6 @@
-Hello #USERNAME#
+Αγαπητέ/ή #USERNAME#
 
-Thank you for joining our website #WEBSITENAME#
-
+Σας ευχαριστούμε για την εγγραφή σας στο Σύλλογο Αποφοίτων και σας καλωσορίζουμε στην κοινότητά μας.
 
 #ACTIVATION-MESSAGE
 

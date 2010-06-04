@@ -2,125 +2,114 @@
 
 class Validator {
 	
-	public $errors_global = array();
-	public $errors_specific = array();
+	private $post;
+	public $errors_global;
+	public $errors_specific;
 
-	public $validate_filters = array(
+	public static $check_required = array(
 	
 		// User
-		'group_id'       => 'integer',
-		'username'       => 'string_lowercase',
-		'password'       => 'password',
-		'password_c'     => 'password',
-		'email'          => 'email',
-		'email_c'        => 'email',
+		'group_id'		=> true,
+		'username'		=> true,
+		'password'		=> true,
+		'password_c'	=> false,
+		'email'			=> true,
+		'email_c'		=> false,
+		'year'			=> true,
 	
 		// Personal Information
-		'lastname'       => 'string',
-		'firstname'      => 'string',
-		'fathersname'    => 'string',
-		'dob-date'       => 'integer',
-	    'dob-month'      => 'integer',
-	    'dob-year'       => 'integer',
+		'lastname'		=> true,
+		'firstname'		=> true,
+		'fathersname'	=> true,
+		'dobdate'		=> true,
+		'dobmonth'		=> true,
+		'dobyear'		=> true,
 	
 		// Studies
-		'entryyear'      => 'integer',
-		'graduationyear' => 'integer',
+		'entryyear'		=> true,
+		'graduationyear'=> true,
 	
 		//Contact
-		'address1'       => 'string',
-		'address2'       => 'string',
-		'postcode'       => 'string',
-		'city'           => 'string',
-		'country'        => 'integer',
+		'address1'		=> true,
+		'address2'		=> false,
+		'postcode'		=> true,
+		'city'			=> true,
+		'country'		=> true,
 	
-		'phone_home'     => 'phone',
-		'phone_mobile'   => 'phone',
+		'phone_home'	=> false,
+		'phone_mobile'	=> false,
 	
-		'im_msn'         => 'email',
-		'im_xmpp'        => NULL,
-		'im_skype'       => NULL,
-		'website1'       => NULL,
-		'website2'       => NULL,
-		'website3'       => NULL,
-		'sn_facebook'    => NULL,
-		'sn_twitter'     => NULL,
-		'sn_linkedin'    => NULL,
-		'sn_google'      => NULL,
-	
-		// CAPTCHA
-		'recaptcha_challenge_field' => NULL,
-		'recaptcha_response_field'  => NULL
-	);
-	
-	public $check_optional = array(
-	
-		// User
-		'group_id'       => true,
-		'username'       => true,
-		'password'       => true,
-		'password_c'     => false,
-		'email'          => true,
-		'email_c'        => false,
-	
-		// Personal Information
-		'lastname'       => true,
-		'firstname'      => true,
-		'fathersname'    => true,
-		'dob-date'       => true,
-	    'dob-month'      => true,
-	    'dob-year'       => true,
-	
-		// Studies
-		'entryyear'      => true,
-		'graduationyear' => true,
-	
-		//Contact
-		'address1'       => true,
-		'address2'       => false,
-		'postcode'       => true,
-		'city'           => true,
-		'country'        => true,
-	
-		'phone_home'     => false,
-		'phone_mobile'   => false,
-	
-		'im_msn'         => false,
-		'im_xmpp'        => false,
-		'im_skype'       => false,
-		'website1'       => false,
-		'website2'       => false,
-		'website3'       => false,
-		'sn_facebook'    => false,
-		'sn_twitter'     => false,
-		'sn_linkedin'    => false,
-		'sn_google'      => false,
+		'im_msn'		=> false,
+		'im_xmpp'		=> false,
+		'im_skype'		=> false,
+		'website1'		=> false,
+		'website2'		=> false,
+		'website3'		=> false,
+		'sn_facebook'	=> false,
+		'sn_twitter'	=> false,
+		'sn_linkedin'	=> false,
+		'sn_google'		=> false,
 	
 		// CAPTCHA
 		'recaptcha_challenge_field' => false,
-		'recaptcha_response_field'  => false
+		'recaptcha_response_field'  => false,
+	
+		// Signatures
+		'signature_deed' 			=> false,
+		'signature_privacypolicy' 	=> false,
+		'signature_termsofuse'		=> false
 	);
+	
+	function __construct(&$post = NULL) {
+		$this->post = &$post;
+		$this->errors_global = array();
+		$this->errors_specific = array();
+	}
 	
 	// Insert an error message into the $errors_global array
 	public function set_global_error($msg) {
-		array_push($this->errors_global, $msg); 
+		array_push($this->errors_global, $msg);
 	}
 	
-	// Insert an error message into the $errors_global array
+	// Insert an error message into the $errors_specific array
 	public function set_specific_error($field, $msg) {
-		$this->errors_specific['$field'] = $msg; 
+		$this->errors_specific[$field] = $msg; 
+	}
+	
+	public function validate_group_id ($value) {
+		if ($value < 1 || $value > 3) {
+			$this->set_specific_error('group_id',lang("GENERIC_FORM_FIELD_ERROR"));
+		}
+	}
+	
+	public function validate_entryyear ($value) {
+		if ($this->post['group_id'] == 1 || $this->post['group_id'] == 2)
+			if ($value == 0)
+				$this->set_specific_error('entryyear', lang("PLEASE_SELECT_ENTRY_YEAR"));
+		
+	}
+	
+	public function validate_graduationyear ($value) {
+		if ($this->post['group_id'] == 1)
+		{
+			if ($value == 0)
+				$this->set_specific_error('graduationyear', lang("PLEASE_SELECT_GRADUATION_YEAR"));
+			else if ($value < $this->post['entryyear'] + 3)
+				$this->set_specific_error('graduationyear', lang("WHAT_ARE_YOU,_A_GENIUS?"));
+		}
+		else if ($this->post['group_id'] == 2)
+		{
+			
+		}
 	}
 	
 	public function validate_username($value) {
-		
 		if (minMaxRange(4,16,$value)) {
-			$this->set_specific_error('username',lang("ACCOUNT_USER_CHAR_LIMIT",array(5,25)));
+			$this->set_specific_error('username',lang("ACCOUNT_USER_CHAR_LIMIT",array(4,16)));
 		}
-		else if (usernameExists($username)) {
+		else if (usernameExists($value)) {
 			$this->set_specific_error('username',lang("ACCOUNT_USERNAME_IN_USE",array($value)));
 		}
-		
-		
 	}
 	
 	public function validate_website($value) {
@@ -132,7 +121,7 @@ class Validator {
 		
 		$regex = "/^$regex$/";
 
-		
+		// TODO Check against regex 
 
 	}
 	
@@ -140,18 +129,12 @@ class Validator {
 		if (minMaxRange(4,16,$value)) {
 			$this->set_specific_error('password',lang("ACCOUNT_PASS_CHAR_LIMIT",array(4,16)));
 		}
-		
-		// Remeber password for later confirmation
-		$this->confirmation_fields['password'] = $value;
 	}
 	
 	public function validate_password_c($value) {
-		if (!($this->confirmation_fields['password'] === $value)) {
-			$this->set_specific_error('password',lang("ACCOUNT_PASS_MISMATCH"));
+		if (!($this->post['password'] === $value)) {
+			$this->set_specific_error('password_c',lang("ACCOUNT_PASS_MISMATCH"));
 		}
-		
-		// Remove password from confirmation array
-		unset($this->confirmation_fields['password']);
 	}
 	
 	public function validate_email($value) {
@@ -160,20 +143,14 @@ class Validator {
 			$this->set_specific_error('password',lang("ACCOUNT_INVALID_EMAIL"));
 		}
 		else if (emailExists($value)) {
-			$this->set_specific_error('password',lang("ACCOUNT_EMAIL_TAKEN"));
+			$this->set_specific_error('email',lang("ACCOUNT_EMAIL_IN_USE", array($value)));
 		}
-		
-		// Remeber password for later confirmation
-		$this->confirmation_fields['email'] = $value;
 	}
 	
 	public function validate_email_c($value) {
-		if (!($this->confirmation_fields['email'] === $value)) {
-			$this->set_specific_error('email',lang("ACCOUNT_MAIL_MISMATCH"));
+		if (!($this->post['email'] === $value)) {
+			$this->set_specific_error('email_c',lang("ACCOUNT_MAIL_MISMATCH"));
 		}
-		
-		// Remove password from confirmation array
-		unset($this->confirmation_fields['email']);
 	}
 	
 	public function validate_phone_home($value) {
@@ -181,24 +158,36 @@ class Validator {
 			$this->set_specific_error('phone_home',lang("ACCOUNT_PHONE_FORMAT_ERROR"));
 		}
 		// Extra validation rules for Greece
-		else if ($this->confirmation_fields['country'] == 0) {
+		else if ($this->post['country'] == 0) {
 			if (filter_var($value, FILTER_VALIDATE_REGEXP, array('options' => array( 'regexp' => '/^2[1-9][0-9]{8}$/'))) === false) {
 				$this->set_specific_error('phone_home',lang("ACCOUNT_PHONE_COUNTRY_ERROR"));
 			}
 		}
 	}
 	
+	public function validate_phone_mobile($value) {
+		if (empty($this->post['phone_mobile']) && empty($this->post['phone_home']))
+			$this->set_specific_error('phone_mobile', lang("AT_LEAST_ONE_PHONE_NUMBER"));
+	}
+	
+	public function validate_dobyear($value) {
+		if ($value < 1950 || $value > (int)date("Y") - 16 || !checkdate((int)$this->post['dobmonth'], (int)$this->post['dobdate'], (int)$this->post['dobyear'])) 
+			$this->set_specific_error('dobyear', lang("ACCOUNT_INVALID_DATE_OF_BIRTH"));
+	}
+	
 	public function validate($value, $key) {
 		
-		if ( $this->check_optional[$key] ) {
+		if ( Validator::$check_required[$key] ) {
 			if (empty($value)) {
 				$this->set_specific_error($key,lang("REQUIRED_FIELD"));
 			}
 		}
-		$callback = '$this->validate_'.$key;
-		if (function_exists($callback)) {
-			$callback($value);
+		$callback = 'validate_'.$key;
+		if (method_exists($this, $callback)) {
+			$this->$callback($value);
 		}
+		
+		
 	}
 }
 

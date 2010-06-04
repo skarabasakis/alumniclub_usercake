@@ -73,7 +73,7 @@ class userCakeMail {
 		if($msg == NULL)
 			$msg = $this->contents; 
 
-		$message .= $msg;
+		$message = $msg;
 
 		$message = wordwrap($message, 70);
 			

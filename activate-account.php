@@ -48,19 +48,17 @@ else
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Account Activation - <?php echo $websiteName; ?></title>
-<link href="cakestyle.css" rel="stylesheet" type="text/css" />
+<title>Ενεργοποίηση Λογαριασμού - <?php echo $websiteName; ?></title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="form.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
+<?php include 'includes/header-nav.php'; ?>
 <div id="wrapper">
-
-		<div id="content">
-    
-        <div id="left-nav">
-        <?php include("layout_inc/left-nav.php"); ?>
-            <div class="clear"></div>
-        </div>
-
+	<div id="secondary-navi">
+		<?php include 'includes/secondary-nav.php'; ?>
+	</div>
+	<div id="content" >
 		<div id="main">
 
 		<h1>Account activation</h1>
@@ -68,18 +66,18 @@ else
 			<?php
 				if(count($errors) > 0)
 				{
-            ?>
-            <div id="errors">
-            <?php errorBlock($errors); ?>
-            </div>     
-            <?php
-           		 } else { ?> 
-        <div id="success">
-        
-           <p><?php echo lang("ACCOUNT_NOW_ACTIVE"); ?></p>
-           
-        </div>
-        <? }?>
+			?>
+			<div id="errors">
+			<?php errorBlock($errors); ?>
+			</div>	 
+			<?php
+		   		 } else { ?> 
+		<div id="success">
+		
+		   <p><?php echo lang("ACCOUNT_NOW_ACTIVE"); ?></p>
+		   
+		</div>
+		<? }?>
 	 
 
 		</div>

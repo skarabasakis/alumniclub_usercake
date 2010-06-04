@@ -39,7 +39,14 @@
 	require_once("funcs.user.php");
 	require_once("funcs.general.php");
 	require_once("class.newuser.php");
-
+	
+	require_once("class.formsanitizer.php");
+	require_once("class.validator.php");
+	require_once("class.contact.php");
+	require_once("class.personal.php");
+	require_once("class.status.php");
+	require_once("class.studies_undergr.php");
+	
 	session_start();
 	
 	//Global User Object Var

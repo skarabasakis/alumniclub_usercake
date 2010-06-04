@@ -54,7 +54,8 @@
 	
 	// Alumni Specific Settings
 	//---------------------------------------------------------------------------
-	$recaptcha_publickey = "6Ld1egwAAAAAAKPaDpoeLa_XyP-mSrvCaztacAT2 ";
-	$recaptcha_privatekey = "6Ld1egwAAAAAAKslgPNcjXACJ0G81T1FWArFcv_9 ";
+	$recaptcha_publickey = "6Le7oroSAAAAAM-DFkSNbzFTCkZVRtdLLGZ9-IQ1";
+	$recaptcha_privatekey = "6Le7oroSAAAAABZ8moesBMVuyHVw0GXrLXBCEq80";
+	$year_change_date = mktime(0,0,0,7,1); // Membership year changes on july 1st
 	
 ?>

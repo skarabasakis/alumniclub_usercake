@@ -1,7 +1,9 @@
-Hello #USERNAME#
+Γεια σας #USERNAME#
 
-You or someone else has requested a new activation link, please use the below url to activate your account;
+Εσύ ή κάποιος άλλος επισκέπτης αιτήθηκε την επαναποστολή ενός μηνύματος ενεργοποίησης. Παρακαλούμε ακολουθήστε τον παρακάτω σύνδεσμο για να ενεργοποιήσετε το λογαριασμό σας.
 
 #ACTIVATION-URL
+
+Αν αντιμετωπίζετε κάποιο πρόβλημα με τις δικτυακές υπηρεσίες του alumniclub.di.uoa.gr, μη διστάσετε να μας στείλετε email. 
 
 #INC-FOOTER#

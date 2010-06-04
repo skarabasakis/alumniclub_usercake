@@ -93,60 +93,58 @@ if(!empty($_POST))
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Login - <?php echo $websiteName; ?></title>
-<link href="cakestyle.css" rel="stylesheet" type="text/css" />
+<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="form.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
+<?php include 'includes/header-nav.php'; ?>
 <div id="wrapper">
-	<div id="content">
+	<div id="secondary-navi">
+		<?php include 'includes/secondary-nav.php'; ?>
+	</div>
+	<div id="content" >
+		<div id="main">
+		
+		<h1>Σύνδεση</h1>
+		
+		<?php
+		if(!empty($_POST))
+		{
+		?>
+		<?php
+		if(count($errors) > 0)
+		{
+		?>
+		<div id="errors">
+		<?php errorBlock($errors); ?>
+		</div>	 
+		<?php
+		} }
+		?> 
+		
+			<div id="regbox">
+				<form name="newUser" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
+				<p>
+					<label class="field">Username:</label>
+					<input type="text" name="username" />
+				</p>
+				
+				<p>
+					 <label class="field">Password:</label>
+					 <input type="password" name="password" />
+				</p>
+				
+				<p style="text-align: center;">
+					<input type="submit" value="Σύνδεση" class="submit" />
+				</p>
 
-        <div id="left-nav">
-        <?php include("layout_inc/left-nav.php"); ?>
-            <div class="clear"></div>
-        </div>
-
-        <div id="main">
-        
-        <h1>Login</h1>
-        
-        <?php
-        if(!empty($_POST))
-        {
-        ?>
-        <?php
-        if(count($errors) > 0)
-        {
-        ?>
-        <div id="errors">
-        <?php errorBlock($errors); ?>
-        </div>     
-        <?php
-        } }
-        ?> 
-        
-            <div id="regbox">
-                <form name="newUser" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
-                <p>
-                    <label>Username:</label>
-                    <input type="text" name="username" />
-                </p>
-                
-                <p>
-                     <label>Password:</label>
-                     <input type="password" name="password" />
-                </p>
-                
-                <p>
-                    <label>&nbsp;</label>
-                    <input type="submit" value="Login" class="submit" />
-                </p>
-
-                </form>
-                
-            </div>
-        </div>
-        
-            <div class="clear"></div>
-        </div>
+				</form>
+				
+			</div>
+		</div>
+		
+			<div class="clear"><a href="forgot-password.php">Υπενθύμιση κωδικού</a></div>
+		</div>
 </div>
 </body>
 </html>

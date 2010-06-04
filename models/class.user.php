@@ -20,7 +20,7 @@ class loggedInUser {
 		global $db,$db_table_prefix;
 		
 		$sql = "UPDATE ".$db_table_prefix."Users
-			    SET
+				SET
 				LastSignIn = '".time()."'
 				WHERE
 				User_ID = '".$db->sql_escape($this->user_id)."'";
@@ -57,7 +57,7 @@ class loggedInUser {
 		$this->hash_pw = $secure_pass;
 		
 		$sql = "UPDATE ".$db_table_prefix."Users
-		       SET
+			   SET
 			   Password = '".$db->sql_escape($secure_pass)."' 
 			   WHERE
 			   User_ID = '".$db->sql_escape($this->user_id)."'";

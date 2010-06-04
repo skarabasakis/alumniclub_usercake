@@ -87,11 +87,13 @@
 
 			$iteration = 1;
 			
-			foreach($markers as $marker)
-			{
-				$str = str_replace("%m".$iteration."%",$marker,$str);
-				
-				$iteration++;
+			if ($markers != null) {
+				foreach($markers as $marker)
+				{
+					$str = str_replace("%m".$iteration."%",$marker,$str);
+					
+					$iteration++;
+				}
 			}
 		}
 		

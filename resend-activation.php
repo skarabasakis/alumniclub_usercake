@@ -66,6 +66,7 @@ if(!empty($_POST) && $emailActivation)
 				}
 				else
 				{
+					// TODO: Potential division by zero
 					$hours_diff = round((time()-$userdetails["LastActivationRequest"]) / (3600*$resend_activation_threshold),0);
 
 					if($resend_activation_threshold!=0 && $hours_diff <= $resend_activation_threshold)
@@ -120,82 +121,80 @@ if(!empty($_POST) && $emailActivation)
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Resend Activation Email - <?php echo $websiteName; ?></title>
-<link href="cakestyle.css" rel="stylesheet" type="text/css" />
+<title>Επαναποστολή μηνύματος ενεργοποίησης - <?php echo $websiteName; ?></title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="form.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
+<?php include 'includes/header-nav.php'; ?>
 <div id="wrapper">
-	<div id="content">
- 
- 	   <div id="left-nav">
-        <?php include("layout_inc/left-nav.php"); ?>
-            <div class="clear"></div>
-        </div>
-        
-     <div id="main">
+	<div id="secondary-navi">
+		<?php include 'includes/secondary-nav.php'; ?>
+	</div>
+	<div id="content" >
+		<div id="main">
  
  	 <h1>Resend Activation Email</h1>
  
-    <?php
-    if(!empty($_POST) || !empty($_GET["confirm"]) || !empty($_GET["deny"]) && $emailActivation)
-    {     
+	<?php
+	if(!empty($_POST) || !empty($_GET["confirm"]) || !empty($_GET["deny"]) && $emailActivation)
+	{	 
 	
 			if(count($errors) > 0)
-            {
+			{
 		?>
-        	<div id="errors">
-            	<?php errorBlock($errors); ?>
-            </div> 
-        <?
-            }
+			<div id="errors">
+				<?php errorBlock($errors); ?>
+			</div> 
+		<?
+			}
 			else
 			{
 		?>
-            <div id="success">
-            
-                <p><?php echo $success_message; ?></p>
-            
-            </div>
-        <?
+			<div id="success">
+			
+				<p><?php echo $success_message; ?></p>
+			
+			</div>
+		<?
 			}
-        }
-        ?> 
-    
-    <div id="regbox">
+		}
+		?> 
+	
+	<div id="regbox">
 	
 	<?php 
-    
-    if(!$emailActivation)
-    { 
-        echo lang("FEATURE_DISABLED");
-    }
+	
+	if(!$emailActivation)
+	{ 
+		echo lang("FEATURE_DISABLED");
+	}
 	else
 	{
-    ?>
-        <form name="resendActivation" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
-        
-        
-        <p>
-            <label>Username:</label>
-            <input type="text" name="username" />
-        </p>     
-            
-         <p>
-            <label>Email:</label>
-            <input type="text" name="email" />
-         </p>    
-    
-    	 <p>
-         	<label>&nbsp;</label>
-            <input type="submit" value="Login" class="submit" />
-         </p>
-            
-        </form>
+	?>
+		<form name="resendActivation" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
+		
+		
+		<p>
+			<label class="field">Username:</label>
+			<input type="text" name="username" value="<?php echo $_GET['username'] ?>"/>
+		</p>	 
+			
+		 <p>
+			<label class="field">Email:</label>
+			<input type="text" name="email" value="<?php echo $_GET['email'] ?>"/>
+		 </p>	
+	
+		<p style="text-align: center;">
+			<input type="submit" value="Resend" class="submit" />
+		 </p>
+			
+		</form>
 
 	 <? } ?> 
-     </div>   
-     
-     		<div class="clear"></div>   
+	 </div>   
+	 
+	 		<div class="clear"></div>   
 		</div>
 	</div>   
 </div>
