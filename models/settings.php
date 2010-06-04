@@ -13,7 +13,7 @@
 	$dbtype = "mysql"; 
 	$db_host = "localhost";
 	$db_user = "skarab_usercake";
-	$db_pass = "usercake";
+	$db_pass = "";
 	$db_name = "skarab_usercake";
 	$db_port = "";
 	$db_table_prefix = "";

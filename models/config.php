@@ -31,7 +31,7 @@
 		die("Unable to connect to the database");
 	}
 	
-	if(!isset($language)) $langauge = "en";
+	if(!isset($language)) $langauge = "el";
 
 	require_once("lang/".$langauge.".php");
 	require_once("class.user.php");
