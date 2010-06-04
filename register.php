@@ -49,6 +49,12 @@
 			$v->validate($value, $key);
 		}
 		
+		if (!array_key_exists('group_id', $_POST))
+			$v->set_specific_error('group_id',lang("REQUIRED_FIELD"));
+		if (!array_key_exists('year', $_POST))
+			$v->set_specific_error('year',lang("GENERIC_FORM_FIELD_ERROR"));
+			
+			
 		if (!array_key_exists('signature_deed', $_POST))
 			$v->set_specific_error('signature_deed', lang("ACCOUNT_SIGNATURE_MISSING", array("το καταστατικό του Συλλόγου Αποφοίτων")));
 		if (!array_key_exists('signature_privacypolicy', $_POST))
@@ -80,7 +86,7 @@
 				// Retrieve the User_ID from the database
 				$userdetails = fetchUserDetails($user->clean_username);
 				
-				if (!$userdetails) {
+				if (!empty($userdetails)) {
 					
 					$contact = new Contact(true, $userdetails['User_ID'], $_POST);
 					$personal = new Personal(true, $userdetails['User_ID'], $_POST);
@@ -98,6 +104,8 @@
 					// TODO Failure handling here is non-existent
 					// Need to better handle the case when database insertion partially fails
 					$success = true;
+					
+					var_dump($inserted);
 					
 					foreach ($inserted as $key => $value) {
 						if ($value == false)

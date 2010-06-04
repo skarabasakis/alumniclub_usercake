@@ -63,14 +63,14 @@ class Contact {
 		global $db, $db_table_prefix;
 		
 		$fields = "`User_ID`";
-		$values = "'.$this->user_id.'";
+		$values = "'".$this->user_id."'";
 		foreach($this->data as $field => $value) {
 			$fields .= ", `".$field."`";
 			$values .= ", '".$db->sql_escape($value)."'"; 
 		}
 		
 		$sql  = "INSERT INTO `".$db_table_prefix.$this->table."` (".$fields.") VALUES (".$values.")";
-
+		
 		return $db->sql_query($sql);
 	}
 	

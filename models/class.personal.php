@@ -51,7 +51,7 @@ class Personal {
 		global $db, $db_table_prefix; 
 		
 		$fields = "`User_ID`";
-		$values = "'.$this->user_id.'";
+		$values = "'".$this->user_id."'";
 		foreach($this->data as $field => $value) {
 			$fields .= ", `".$field."`";
 			$values .= ", '".$db->sql_escape($value)."'"; 
