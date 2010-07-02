@@ -83,10 +83,12 @@ class Validator {
 	}
 	
 	public function validate_entryyear ($value) {
-		if ($this->post['group_id'] == 1 || $this->post['group_id'] == 2)
+		if ($this->post['group_id'] == 1 || $this->post['group_id'] == 2) {
 			if ($value == 0)
 				$this->set_specific_error('entryyear', lang("PLEASE_SELECT_ENTRY_YEAR"));
-		
+			else if ($value < $this->post['dobyear'] + 16 )
+				$this->set_global_error(lang("DOB_OR_ENTRYYEAR_IS_WRONG"));
+		}
 	}
 	
 	public function validate_graduationyear ($value) {
@@ -153,22 +155,42 @@ class Validator {
 		}
 	}
 	
-	public function validate_phone_home($value) {
-		if(filter_var($value, FILTER_VALIDATE_INT) === false) {
-			$this->set_specific_error('phone_home',lang("ACCOUNT_PHONE_FORMAT_ERROR"));
+	public function validate_postcode($value) {
+		if ($this->post['country'] == 1) {
+			if (strlen($value) != 5) {
+				$this->set_specific_error('postcode', lang(ACCOUNT_POSTCODE_ERROR));
+			}
 		}
-		// Extra validation rules for Greece
-		else if ($this->post['country'] == 0) {
-			if (filter_var($value, FILTER_VALIDATE_REGEXP, array('options' => array( 'regexp' => '/^2[1-9][0-9]{8}$/'))) === false) {
-				$this->set_specific_error('phone_home',lang("ACCOUNT_PHONE_COUNTRY_ERROR"));
+	}
+	
+	public function validate_phone_home($value) {
+		if (!empty($value)) {
+			if ($this->post['country'] == 1) {
+				if (filter_var($value, FILTER_VALIDATE_REGEXP, array('options' => array( 'regexp' => '/^2[1-9][0-9]{8}$/'))) == false) {
+					$this->set_specific_error('phone_home',lang("ACCOUNT_PHONE_COUNTRY_ERROR"));
+				}
 			}
 		}
 	}
 	
 	public function validate_phone_mobile($value) {
-		if (empty($this->post['phone_mobile']) && empty($this->post['phone_home']))
-			$this->set_specific_error('phone_mobile', lang("AT_LEAST_ONE_PHONE_NUMBER"));
+		if (!empty($value)) {
+			if ($this->post['country'] == 1) {
+				if (filter_var($value, FILTER_VALIDATE_REGEXP, array('options' => array( 'regexp' => '/^69[3-9][0-9]{7}$/'))) == false) {
+					$this->set_specific_error('phone_mobile',lang("ACCOUNT_PHONE_COUNTRY_ERROR"));
+				}
+			}
+		}
+		else 
+		{
+			if (empty($this->post['phone_mobile']) && empty($this->post['phone_home']))
+				$this->set_specific_error('phone_mobile', lang("AT_LEAST_ONE_PHONE_NUMBER"));
+		}
 	}
+	
+	// TODO Validators for web profiles and instant messengers
+	// Google id looks like this: http://www.google.com/profiles/106237828597073414736
+	// Google talk id looks like this: chris.pirillo@gmail.com
 	
 	public function validate_dobyear($value) {
 		if ($value < 1950 || $value > (int)date("Y") - 16 || !checkdate((int)$this->post['dobmonth'], (int)$this->post['dobdate'], (int)$this->post['dobyear'])) 

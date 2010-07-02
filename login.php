@@ -143,7 +143,7 @@ if(!empty($_POST))
 			</div>
 		</div>
 		
-			<div class="clear"><a href="forgot-password.php">Υπενθύμιση κωδικού</a></div>
+			<div class="clear"><a href="forgot-password.php">Ξεχάσατε το password σας;</a></div>
 		</div>
 </div>
 </body>

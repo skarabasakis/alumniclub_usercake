@@ -6,8 +6,8 @@
 -- Table structure and data for table `Groups`
 --
 
-DROP TABLE IF EXISTS `Groups`;
-CREATE TABLE `Groups` (
+DROP TABLE IF EXISTS `usercake_Groups`;
+CREATE TABLE `usercake_Groups` (
   `Group_ID` int(11) NOT NULL auto_increment,
   `Group_Name` varchar(225) NOT NULL,
   PRIMARY KEY  (`Group_ID`)
@@ -17,7 +17,7 @@ CHARACTER SET utf8 COLLATE utf8_general_ci
 AUTO_INCREMENT=5 ;
 
 
-INSERT INTO `Groups` (`Group_ID`, `Group_Name`) VALUES
+INSERT INTO `usercake_Groups` (`Group_ID`, `Group_Name`) VALUES
 (1, 'Τακτικό Μέλος'),
 (2, 'Δόκιμο Μέλος'),
 (3, 'Κοινωνικό Μέλος'),
@@ -31,8 +31,8 @@ INSERT INTO `Groups` (`Group_ID`, `Group_Name`) VALUES
 -- Table structure for table `Countries`
 --
 
-DROP TABLE IF EXISTS `Countries`;
-CREATE TABLE `Countries` (
+DROP TABLE IF EXISTS `usercake_Countries`;
+CREATE TABLE `usercake_Countries` (
   `Country_ID` int(11) NOT NULL,
   `code` char(2) NOT NULL,
   `name` varchar(200),
@@ -43,7 +43,7 @@ CREATE TABLE `Countries` (
 ENGINE = MyISAM
 CHARACTER SET utf8 COLLATE utf8_general_ci;
 
-INSERT INTO `Countries` (`Country_ID`, `code`, `name`, `phoneprefix` ) VALUES 
+INSERT INTO `usercake_Countries` (`Country_ID`, `code`, `name`, `phoneprefix` ) VALUES 
 (1,'GR','Greece','+30'),
 (2,'AF','Afghanistan','+93'),
 (3,'AL','Albania','+355'),
@@ -250,8 +250,8 @@ INSERT INTO `Countries` (`Country_ID`, `code`, `name`, `phoneprefix` ) VALUES
 -- Table structure for table `Users`
 --
 
-DROP TABLE IF EXISTS `Users`;
-CREATE TABLE IF NOT EXISTS `Users` (
+DROP TABLE IF EXISTS `usercake_Users`;
+CREATE TABLE IF NOT EXISTS `usercake_Users` (
   `User_ID` int(11) NOT NULL auto_increment,
   `Username` varchar(150) NOT NULL,
   `Username_Clean` varchar(150) NOT NULL,
@@ -276,8 +276,8 @@ AUTO_INCREMENT=1 ;
 -- Table structure for table `MemberInfo_Personal`
 --
 
-DROP TABLE IF EXISTS `MemberInfo_Personal`;
-CREATE TABLE `MemberInfo_Personal` (
+DROP TABLE IF EXISTS `usercake_MemberInfo_Personal`;
+CREATE TABLE `usercake_MemberInfo_Personal` (
   `User_ID` INTEGER UNSIGNED NOT NULL,
   `lastname` VARCHAR(45) NOT NULL,
   `firstname` VARCHAR(30) NOT NULL,
@@ -296,14 +296,14 @@ CHARACTER SET utf8 COLLATE utf8_general_ci;
 -- Table structure for table `MemberInfo_Contact`
 --
 
-DROP TABLE IF EXISTS `MemberInfo_Contact`;
-CREATE TABLE IF NOT EXISTS `MemberInfo_Contact` (
+DROP TABLE IF EXISTS `usercake_MemberInfo_Contact`;
+CREATE TABLE IF NOT EXISTS `usercake_MemberInfo_Contact` (
   `User_ID` INTEGER UNSIGNED NOT NULL,
-  `address1` VARCHAR(60) NOT NULL,
+  `address1` VARCHAR(60),
   `address2` VARCHAR(60),
-  `postcode` VARCHAR(10) NOT NULL,
-  `city` VARCHAR(45) NOT NULL,
-  `country` INTEGER(3) UNSIGNED NOT NULL DEFAULT 0,
+  `postcode` VARCHAR(10),
+  `city` VARCHAR(45),
+  `country` INTEGER(3) UNSIGNED NOT NULL DEFAULT 1,
   `phone_home` VARCHAR(30),
   `phone_mobile` VARCHAR(30),
   `im_msn` VARCHAR(45),
@@ -327,8 +327,8 @@ CHARACTER SET utf8 COLLATE utf8_general_ci;
 -- Table structure for table `MemberInfo_Studies_Undergr`
 --
 
-DROP TABLE IF EXISTS `MemberInfo_Studies_Undergr`;
-CREATE TABLE IF NOT EXISTS `MemberInfo_Studies_Undergr` (
+DROP TABLE IF EXISTS `usercake_MemberInfo_Studies_Undergr`;
+CREATE TABLE IF NOT EXISTS `usercake_MemberInfo_Studies_Undergr` (
   `User_ID` INTEGER UNSIGNED NOT NULL,
   `entryyear` YEAR(4) NOT NULL,
   `graduationyear` YEAR(4) NOT NULL DEFAULT 0000,
@@ -355,11 +355,11 @@ CHARACTER SET utf8 COLLATE utf8_general_ci;
 -- Table structure for table `MemberInfo_Status`
 --
 
-DROP TABLE IF EXISTS `MemberInfo_Status`;
-CREATE TABLE IF NOT EXISTS `MemberInfo_Status` (
+DROP TABLE IF EXISTS `usercake_MemberInfo_Status`;
+CREATE TABLE IF NOT EXISTS `usercake_MemberInfo_Status` (
   `User_ID` INTEGER UNSIGNED NOT NULL,
   `year` YEAR(4) NOT NULL,
-  `Group_id` INTEGER(11),
+  `group_id` INTEGER(11),
   PRIMARY KEY (`User_ID`, `year`)
 )
 ENGINE = MyISAM
@@ -371,8 +371,8 @@ CHARACTER SET utf8 COLLATE utf8_general_ci;
 -- Table structure for table `MemberInfo_Payments`
 --
 
-DROP TABLE IF EXISTS `MemberInfo_Payments`;
-CREATE TABLE IF NOT EXISTS `MemberInfo_Payments` (
+DROP TABLE IF EXISTS `usercake_MemberInfo_Payments`;
+CREATE TABLE IF NOT EXISTS `usercake_MemberInfo_Payments` (
   `User_ID` INTEGER UNSIGNED NOT NULL,
   `year` YEAR(4) NOT NULL,
   `amount` DECIMAL NOT NULL DEFAULT 0.00,

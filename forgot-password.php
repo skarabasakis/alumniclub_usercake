@@ -201,7 +201,7 @@ if(!empty($_POST))
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Υπενθύμιση password - <?php echo $websiteName; ?></title>
+<title>Επαναφορά password - <?php echo $websiteName; ?></title>
 <link href="style.css" rel="stylesheet" type="text/css" />
 <link href="form.css" rel="stylesheet" type="text/css" />
 </head>
@@ -214,7 +214,7 @@ if(!empty($_POST))
 	<div id="content" >
 		<div id="main">
 		
-		<h1>Forgot Password</h1>
+		<h1>Επαναφορά Password</h1>
 		
 		<?php
 		if(!empty($_POST) || !empty($_GET))
@@ -244,19 +244,19 @@ if(!empty($_POST))
 			<form name="newLostPass" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
 			
 			<p>
-				<label class="field">Username:</label>
+				<label class="required field">Username:</label>
 				<input type="text" name="username" />
 			</p>
 			
 			
 			<p>	
-				<label class="field">Email:</label>
+				<label class="required field">Email:</label>
 				<input type="text" name="email" />
 			</p>
 			
 			
 			<p style="text-align: center;">
-				<input type="submit" value="Login" class="submit" />
+				<input type="submit" value="Αποστολή νέου password" class="submit" />
 			</p>
 			
 			</form>

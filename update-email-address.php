@@ -66,7 +66,7 @@ if(!empty($_POST))
 	<div id="content" >
 		<div id="main">
 
-			<h1>Update your email address</h1>
+			<h1>Αλλαγή email</h1>
 	
 			<?php
 				if(!empty($_POST))
@@ -88,7 +88,7 @@ if(!empty($_POST))
 
 	
 			<div id="regbox">
-				<form name="changePass" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
+				<form name="changeMail" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
 			
 				<p>
 					<label class="field">Email:</label>
@@ -96,7 +96,7 @@ if(!empty($_POST))
 				</p>
 		
 				<p style="text-align: center;">
-					<input type="submit" value="Update Email" class="submit" />
+					<input type="submit" value="Υποβολή" class="submit" />
 				</p>
 				
 				</form>

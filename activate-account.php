@@ -28,7 +28,7 @@ if(isset($_GET["token"]))
 		}
 		else if(!validateActivationToken($token)) //Check for a valid token. Must exist and active must be = 0
 		{
-			$errors[] = "Token does not exist / Account is already activated";
+			$errors[] = "Ο λογαριασμός αυτός δεν υπάρχει ή έχει ήδη ενεργοποιηθεί";
 		}
 		else
 		{
@@ -61,7 +61,7 @@ else
 	<div id="content" >
 		<div id="main">
 
-		<h1>Account activation</h1>
+		<h1>Ενεργοποίηση Λογαριασμού</h1>
 
 			<?php
 				if(count($errors) > 0)

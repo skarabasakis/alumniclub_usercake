@@ -89,7 +89,7 @@ if(!empty($_POST))
 	<div id="content" >
 		<div id="main">
 		
-		<h1>Change Password</h1>
+		<h1>Αλλαγή Password</h1>
 
 		<?php
 			if(!empty($_POST))
@@ -112,22 +112,22 @@ if(!empty($_POST))
 			<form name="changePass" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
 			
 				<p>
-					<label class="field">Password:</label>
+					<label class="field">Αρχικό Password:</label>
 					<input type="password" name="password" />
 				</p>
 				
 				<p>
-					<label class="field">New Pass:</label>
+					<label class="field">Νέο Password:</label>
 					<input type="password" name="passwordc" />
 				</p>
 				
 				<p>
-					<label class="field">Confirm Pass:</label>
+					<label class="field">Νέο Password (επιβεβαίωση):</label>
 					<input type="password" name="passwordcheck" />
 				</p>
 				
 				<p style="text-align: center;">
-					<input type="submit" value="Update Password" class="submit" />
+					<input type="submit" value="Καταχώριση Νέου Password" class="submit" />
 			   </p>
 					
 			</form>

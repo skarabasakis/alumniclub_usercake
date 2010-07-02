@@ -24,10 +24,12 @@ fieldset div
 legend
 	{ padding: 0 .4em; }
 
-
 label.field	 
-	{ float:left; width:15em; display:block; clear:left; margin-right:1em; padding: 0.3em; }
-	
+	{ float:left; width:22em; display:block; clear:left; margin-right:1em; padding: 0.3em; }
+
+label span.foldable
+	{ display: block; padding-left: 25px; font-size: 0.8em; }
+
 textarea, input, select, label, button, optgroup
 	{ margin-top:5px; }
 
@@ -67,7 +69,7 @@ label.required:before
 	{ font-weight: 400; color: #F00; content: '* ';  }
 	
 .field_error
-	{ margin-left:15em; display:block; clear:left; margin-right:1em; text-align:left; 
+	{ margin-left:22em; display:block; clear:left; margin-right:1em; text-align:left; 
 	  font-size: 1.2em; padding: 0.3em 1.5em; font-weight: bold;
 	} 
 

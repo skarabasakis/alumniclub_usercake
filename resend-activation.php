@@ -134,7 +134,7 @@ if(!empty($_POST) && $emailActivation)
 	<div id="content" >
 		<div id="main">
  
- 	 <h1>Resend Activation Email</h1>
+ 	 <h1>Επαναποστολή μηνύματος ενεργοποίησης</h1>
  
 	<?php
 	if(!empty($_POST) || !empty($_GET["confirm"]) || !empty($_GET["deny"]) && $emailActivation)
@@ -176,17 +176,17 @@ if(!empty($_POST) && $emailActivation)
 		
 		
 		<p>
-			<label class="field">Username:</label>
+			<label class="required field">Username:</label>
 			<input type="text" name="username" value="<?php echo $_GET['username'] ?>"/>
 		</p>	 
 			
 		 <p>
-			<label class="field">Email:</label>
+			<label class="required field">Email:</label>
 			<input type="text" name="email" value="<?php echo $_GET['email'] ?>"/>
 		 </p>	
 	
 		<p style="text-align: center;">
-			<input type="submit" value="Resend" class="submit" />
+			<input type="submit" value="Αποστολή" class="submit" />
 		 </p>
 			
 		</form>

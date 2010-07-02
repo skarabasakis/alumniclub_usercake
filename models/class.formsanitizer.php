@@ -31,7 +31,7 @@ class FormSanitizer {
 		//Contact
 		'address1'	   => 'string',
 		'address2'	   => 'string',
-		'postcode'	   => 'string',
+		'postcode'	   => 'integer',
 		'city'		   => 'string',
 		'country'		=> 'integer',
 	

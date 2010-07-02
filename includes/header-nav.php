@@ -1,5 +1,5 @@
 <div id="header">
-	<div id="logo">&nbsp;
+	<div id="logo"><img src="members-logo.png" alt="Περιοχή Μελών" />
 	</div>
 	<div id="navi">
 		<ul>

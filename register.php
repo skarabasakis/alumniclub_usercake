@@ -178,6 +178,7 @@
 			<div id="success">
 			   <p><?php echo $message ?></p>
 			</div>
+			<a href="http://alumniclub.di.uoa.gr/">Επιστροφή στην Αρχική Σελίδα</a>
 			<?php 
 				if (count($warning_messages) > 0) {
 			?>
@@ -199,20 +200,26 @@
 				
 				<fieldset id="membertype">
 					<legend>Τύπος Μέλους</legend>
-					<p>Επιλέξτε τύπο μέλους:</p>
+					<p>Παρακαλώ να με εγγράψετε στο Σύλλογο Αποφοίτων του Τμήματος Πληροφορικής και Τηλεπικοινωνιών ως:</p>
 					<div>
 						<ol>
 							<li>
 								<input type="radio" name="group_id" id="membertype-regular" value="1" <?php if ($postback && $_POST['group_id'] == 1) echo 'checked="checked"';?>/>
-								<label class="boxradio" for="membertype-regular"><strong>Τακτικό Μέλος</strong> (Ετήσια Συνδρομή: &euro;5)</label>
+								<label class="boxradio" for="membertype-regular"><strong>Τακτικό Μέλος</strong>
+									<span class="foldable">Δηλώνω ότι είμαι απόφοιτος του προπτυχιακού προγράμματος σπουδών του Τμήματος Πληροφορικής και Τηλεπικοινωνιών ΕΚΠΑ και έχω αποκτήσει το πτυχίο μου ή έχω καταθέσει αίτηση ορκομωσίας.</span>
+								</label>
 							</li>
 							<li>
 								<input type="radio" name="group_id" id="membertype-junior" value="2"  <?php if ($postback && $_POST['group_id'] == 2) echo 'checked="checked"';?>/>
-								<label class="boxradio" for="membertype-junior"><strong>Δόκιμο μέλος</strong> (Χωρίς ετήσια συνδρομή)</label>
+								<label class="boxradio" for="membertype-junior"><strong>Δόκιμο μέλος</strong>
+									<span class="foldable">Δηλώνω ότι είμαι εν ενεργεία προπτυχιακός φοιτητής του Τμήματος Πληροφορικής και Τηλεπικοινωνιών ΕΚΠΑ.</span>
+								</label>
 							</li>
 							<li>	
 								<input type="radio" name="group_id" id="membertype-social" value="3" <?php if ($postback && $_POST['group_id'] == 3) echo 'checked="checked"';?>/>
-								<label class="boxradio" for="membertype-social"><strong>Κοινωνικό Μέλος</strong> (Ετήσια Συνδρομή: &euro;5)</label>
+								<label class="boxradio" for="membertype-social"><strong>Κοινωνικό Μέλος</strong>
+									<span class="foldable">Δηλώνω ότι είμαι φοιτητής ή απόφοιτος μεταπτυχιακού προγράμματος σπουδών ή υποψήφιος διδάκτορας του Τμήματος Πληροφορικής και Τηλεπικοινωνιών ΕΚΠΑ ή σπούδασα κατά το παρελθόν στο προπτυχιακό πρόγραμμα σπουδών του Τμήματος Πληροφορικής και Τηλεπικοινωνιών ΕΚΠΑ χωρίς να αποφοιτήσω από αυτό.</span>
+								</label>
 							</li>
 						</ol>
 						<?php if (error_exists('group_id')) { ?><div class="field_error"><?php echo $v->errors_specific['group_id'];?></div><?php } ?>
@@ -319,7 +326,7 @@
 				
 				<fieldset id="studies">
 					<legend>Σπουδές</legend>
-					<p>Συμπληρώνεται μόνο από τα τακτικά και τα δόκιμα μέλη. Επιλέξτε το έτος εισαγωγής και αποφοίτησής σας από το προπτυχιακό πρόγραμμα σπουδών του τμήματος Πληροφορικής και Τηλεπικοινωνιών.</p>
+					<p>Συμπληρώνεται μόνο από τα τακτικά και τα δόκιμα μέλη. Αν εγγράφεστε ως δόκιμο μέλος, επιλέξτε μόνο το έτος εισαγωγής.</p>
 					<div>
 						<?php label('entryyear', "Έτος εισαγωγής")?>
 						<select name="entryyear">
@@ -341,7 +348,7 @@
 						<select name="graduationyear">
 							<option value="0">Χωρίς επιλογή</option>
 							<?php 
-								for ($i = 1986; $i <= $thisyear; $i++) {
+								for ($i = 1990; $i <= $thisyear; $i++) {
 							?>
 							<option value="<?php echo $i; ?>" <?php if ($postback && $_POST['graduationyear'] == $i) echo 'selected="selected"';?>><?php echo $i;?></option>
 							<?php 
@@ -356,11 +363,15 @@
 					<legend>Στοιχεία Επικοινωνίας</legend>
 					
 					<div>
-						<?php label('address1', "Διεύθυνση")?>
+						<?php label('address1', "Διεύθυνση (1η γραμμή)")?>
 						<input type="text" name="address1" value="<?php if ($postback) echo $_POST['address1'];?>"/><br />
-						<?php label('address2', "")?>
-						<input type="text" name="address2" value="<?php if ($postback) echo $_POST['address2'];?>"/>
 						<?php if (error_exists('address1')) { ?><div class="field_error"><?php echo $v->errors_specific['address1'];?></div><?php } ?>
+					</div>
+					
+					<div>
+						<?php label('address2', "Διεύθυνση (2η γραμμή)")?>
+						<input type="text" name="address2" value="<?php if ($postback) echo $_POST['address2'];?>"/>
+						<?php if (error_exists('address2')) { ?><div class="field_error"><?php echo $v->errors_specific['address2'];?></div><?php } ?>
 					</div>
 					
 					<div>
@@ -447,7 +458,7 @@
 			</div>
 			<?php } ?>
 
-			<div class="clear"></div>
+			<div class="clear" style="height:3em;"></div>
 	 	</div>
 	</div>
 </div>
