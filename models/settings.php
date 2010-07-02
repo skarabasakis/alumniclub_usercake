@@ -12,8 +12,8 @@
 	//Database Information
 	$dbtype = "mysql"; 
 	$db_host = "localhost";
-	$db_user = "root";
-	$db_pass = "sk2minamin";
+	$db_user = "";
+	$db_pass = "";
 	$db_name = "skarab_usercake";
 	$db_port = "";
 	$db_table_prefix = "";
@@ -22,7 +22,7 @@
 	
 	//Generic website variables
 	$websiteName = "DIT Alumni Club Members";
-	$websiteUrl = "http://skarab.co.cc/alumniservices/"; //including trailing slash
+	$websiteUrl = "http://alumniclub.di.uoa.gr/members"; //including trailing slash
 
 	//Do you wish UserCake to send out emails for confirmation of registration?
 	//We recommend this be set to true to prevent spam bots.
